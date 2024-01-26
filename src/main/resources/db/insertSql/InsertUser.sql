@@ -1,4 +1,4 @@
-INSERT INTO roles (name) VALUES ('ROLE_ADMIN'), ('ROLE_USER');
+INSERT INTO roles (name) VALUES ('ROLE_ADMIN'), ('ROLE_USER') ON CONFLICT (name) DO NOTHING;
 
 INSERT INTO users (username, firstname, lastname, password, role_id)
 VALUES
