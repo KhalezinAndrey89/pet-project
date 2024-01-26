@@ -50,4 +50,8 @@ public class UserServiceImpl {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public List<User> filterUsersByAgeCitySalaryRange(String city, Integer minAge, Integer maxAge, Double minSalary, Double maxSalary) {
+        return userRepository.filterUsersByAgeCitySalaryRange(city, minAge, maxAge, minSalary, maxSalary);
+    }
 }
