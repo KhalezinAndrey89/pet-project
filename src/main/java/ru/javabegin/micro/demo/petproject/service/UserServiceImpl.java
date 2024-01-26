@@ -2,6 +2,7 @@ package ru.javabegin.micro.demo.petproject.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javabegin.micro.demo.petproject.entity.User;
 import ru.javabegin.micro.demo.petproject.repository.UserRepository;
 
@@ -22,4 +23,31 @@ public class UserServiceImpl {
         return userRepository.findById(id);
     }
 
+    @Transactional
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void updateUser(User updatedUser) {
+        Optional<User> optionalUser = userRepository.findById(updatedUser.getId());
+
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+            existingUser.setUsername(updatedUser.getUsername());
+            existingUser.setFirstname(updatedUser.getFirstname());
+            existingUser.setLastname(updatedUser.getLastname());
+            existingUser.setPassword(updatedUser.getPassword());
+            existingUser.setRole(updatedUser.getRole());
+
+            userRepository.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

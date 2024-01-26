@@ -1,11 +1,9 @@
 package ru.javabegin.micro.demo.petproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.javabegin.micro.demo.petproject.entity.User;
 import ru.javabegin.micro.demo.petproject.service.UserServiceImpl;
 
@@ -28,5 +26,24 @@ public class UserController {
     public ResponseEntity<Optional<User>> getUserById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.findUserById(id));
     }
+
+    @PostMapping("/user/create")
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateUser(@RequestBody User user){
+        userService.updateUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }
