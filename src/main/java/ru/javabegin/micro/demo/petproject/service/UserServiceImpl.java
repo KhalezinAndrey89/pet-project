@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javabegin.micro.demo.petproject.entity.User;
+import ru.javabegin.micro.demo.petproject.entity.dto.UserInfoDTO;
+import ru.javabegin.micro.demo.petproject.entity.mappers.UserMapper;
 import ru.javabegin.micro.demo.petproject.repository.UserRepository;
 
 import java.util.List;
@@ -41,6 +43,16 @@ public class UserServiceImpl {
             existingUser.setRole(updatedUser.getRole());
 
             userRepository.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    public UserInfoDTO findUserInfoDtoById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user1 = optionalUser.get();
+            return UserMapper.toDTO(user1);
         } else {
             throw new IllegalArgumentException("User not found");
         }

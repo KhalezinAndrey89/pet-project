@@ -1,11 +1,11 @@
 package ru.javabegin.micro.demo.petproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.javabegin.micro.demo.petproject.entity.User;
+import ru.javabegin.micro.demo.petproject.entity.dto.UserInfoDTO;
 import ru.javabegin.micro.demo.petproject.service.UserServiceImpl;
 
 import java.util.List;
@@ -53,5 +53,15 @@ public class UserController {
                                                       @RequestParam("minSalary") Double minSalary,
                                                       @RequestParam("maxSalary") Double maxSalary) {
         return userService.filterUsersByAgeCitySalaryRange(city, minAge, maxAge, minSalary, maxSalary);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserInfoDTO> getUserInfoById(@PathVariable Long id) {
+        try {
+            UserInfoDTO userInfoDTO = userService.findUserInfoDtoById(id);
+            return ResponseEntity.ok(userInfoDTO);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
