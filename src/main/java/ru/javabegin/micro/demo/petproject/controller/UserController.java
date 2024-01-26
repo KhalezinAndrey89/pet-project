@@ -1,6 +1,7 @@
 package ru.javabegin.micro.demo.petproject.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @GetMapping("/filter")
+    public List<User> filterUsersByAgeCitySalaryRange(@RequestParam("city") String city,
+                                                      @RequestParam("minAge") Integer minAge,
+                                                      @RequestParam("maxAge") Integer maxAge,
+                                                      @RequestParam("minSalary") Double minSalary,
+                                                      @RequestParam("maxSalary") Double maxSalary) {
+        return userService.filterUsersByAgeCitySalaryRange(city, minAge, maxAge, minSalary, maxSalary);
+    }
 }

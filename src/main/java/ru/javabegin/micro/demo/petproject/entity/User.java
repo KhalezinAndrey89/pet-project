@@ -29,6 +29,12 @@ public class User {
 
     private String password;
 
+    private Integer age;
+
+    private String city;
+
+    private Double salary;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     @JsonIgnore
