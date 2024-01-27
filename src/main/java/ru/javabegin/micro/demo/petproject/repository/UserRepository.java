@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import ru.javabegin.micro.demo.petproject.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -19,4 +20,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
                                                Double minSalary,
                                                Double maxSalary);
 
+    Optional<User> findByUsername(String username);
 }
