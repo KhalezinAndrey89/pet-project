@@ -2,8 +2,10 @@ package ru.javabegin.micro.demo.petproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class PetProjectApplication {
 
     public static void main(String[] args) {
